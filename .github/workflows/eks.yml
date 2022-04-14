@@ -82,7 +82,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::118320467932:role/eksctl-dowon0419-cluster-ServiceRole-1A1Z86KONZLPD
+          role-to-assume: arn:aws:iam::118320467932:role/eksctl-dowon0419-addon-iamserviceaccount-kub-Role1-15HBY6D2JQ88M
           aws-region: us-east-1
           
       - name: was-deploy restart
