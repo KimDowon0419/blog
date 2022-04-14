@@ -87,8 +87,15 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
           
-      - name: was-deploy restart
-        run: kubectl rollout restart deployment/was
+      - name: Trigger deploy
+        uses: Consensys/kubernetes-action@master
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        with:
+          args: rollout restart deployment/was
+          
+#       - name: was-deploy restart
+#         run: kubectl rollout restart deployment/was
 
 #       - id: 'auth'
 #         uses: 'google-github-actions/auth@v0'
