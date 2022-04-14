@@ -72,31 +72,36 @@ jobs:
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/m-dev:tomcat_${{ env.RELEASE_VERSION}}
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/m-dev:tomcat_latest
           
-      - name: Get GKE Credentials
-        uses: google-github-actions/get-gke-credentials@v0.7.0
+#       - name: Get GKE Credentials
+#         uses: google-github-actions/get-gke-credentials@v0.7.0
+#         with:
+#           cluster_name: dowon0419
+#           location: us-central1-c
+#           project_id: onyx-zodiac-343008
+#           credentials: ${{ secrets.GCP_SA_KEY }}  
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          cluster_name: dowon0419
-          location: us-central1-c
-          project_id: onyx-zodiac-343008
-          credentials: ${{ secrets.GCP_SA_KEY }}  
+          role-to-assume: arn:aws:iam::118320467932:role/eksctl-dowon0419-cluster-ServiceRole-1A1Z86KONZLPD
+          aws-region: us-east-1
           
       - name: was-deploy restart
         run: kubectl rollout restart deployment/was
 
-      - id: 'auth'
-        uses: 'google-github-actions/auth@v0'
-        with:
-          credentials_json: '${{ secrets.gcp_credentials }}'
+#       - id: 'auth'
+#         uses: 'google-github-actions/auth@v0'
+#         with:
+#           credentials_json: '${{ secrets.gcp_credentials }}'
           
-      - name: filename change
-        run: |
-            DATE=$(date +%y-%m-%d-%H:%M)
-            mv ./build/libs/*.war ./build/libs/$DATE.war
-      - id: 'upload-folder'
-        uses: 'google-github-actions/upload-cloud-storage@v0'
-        with:
-          path: ./build/libs/
-          destination: dowon0419/
-          parent: false
-          glob: '*.war'
+#       - name: filename change
+#         run: |
+#             DATE=$(date +%y-%m-%d-%H:%M)
+#             mv ./build/libs/*.war ./build/libs/$DATE.war
+#       - id: 'upload-folder'
+#         uses: 'google-github-actions/upload-cloud-storage@v0'
+#         with:
+#           path: ./build/libs/
+#           destination: dowon0419/
+#           parent: false
+#           glob: '*.war'
         
