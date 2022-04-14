@@ -101,6 +101,6 @@ jobs:
             mv ./build/libs/*.war ./build/libs/${{ env.DATE}}.war
             
       - name: s3
-        run: aws s3 cp --region us-east-1 --acl private ./build/libs/ s3://dowon0419
+        run: aws s3 cp --region us-east-1 --acl private ./build/libs/*.war s3://dowon0419
 
             
