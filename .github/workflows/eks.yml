@@ -97,7 +97,7 @@ jobs:
         run: kubectl rollout restart deployment/was
         
       - name: filename change
-        run: mv ./build/libs/*.war ./build/libs/${{ env.DATE}}.war
+        run: mv ./build/libs/*.war ./build/libs/$(date +%y-%m-%d-%H-%M).war
             
       - name: s3
         run: aws s3 cp --region us-east-1 --acl private ./build/libs/*.war s3://dowon0419
