@@ -19,10 +19,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      
+          
       - name: Set env
-        run: echo "RELEASE_VERSION=${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV      
-      - name: Set env2 
         run: echo "DATE=${date +%y-%m-%d-%H-%M)" >> $GITHUB_ENV
 
       # Runs a single command using the runners shell
